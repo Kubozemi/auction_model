@@ -8,15 +8,15 @@ library(tidyverse)
 # 入札者は全て2人ずつ
 
 # オークション回数を設定する（適宜、変更する）
-count_auction = 1000000
+COUNT_AUCTION = 1000000
 
 # オークション回数、入札者数、入札者iの私的価値
-df1 <- data.frame(auction = c(1:count_auction),
+df1 <- data.frame(auction = c(1:COUNT_AUCTION),
                   num = as.numeric(2),
-                  xi = runif(count_auction))
+                  xi = runif(COUNT_AUCTION))
 
 # 自分以外のjの私的価値
-df2 <- data.frame(xj = runif(100000))
+df2 <- data.frame(xj = runif(COUNT_AUCTION))
 
 # 各行での最大値（最大の順序統計量、今回はxjと同じ?）
 df2$y1 <- apply(df2, 1, max)
@@ -82,7 +82,7 @@ b <- function(x){
 B <- data.frame(bij = c(df$bi,df$bj))
 
 # 入札額の累積分布関数をノンパラメトリックに推定
-H <- function(b, M=100000, N=2, bij=B$bij){
+H <- function(b, M=COUNT_AUCTION, N=2, bij=B$bij){
   sum(ifelse(bij<=b, 1, 0))/(M*N)
 }
 #  b=0.1のとき
